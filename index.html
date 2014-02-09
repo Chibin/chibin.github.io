@@ -1,1 +1,84 @@
-Hello World!
+<html>
+	<title> Testing for awesome website </title>
+	<meta id="var">
+	<meta id="imageFiles">
+	<head onload="scriptLoad ()">
+		<script type="text/javascript" src="test.js"></script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<style type="text/css">
+			html, body {
+				margin: 0px;
+				padding: 10px;
+				border: 0px;
+			}
+			#t1, #t2{border: 2px solid gray;}
+			.imageFiles{
+				position:absolute;
+				top: 100px;
+				left: 50px;
+			}
+			.frameClass{
+				position:absolut;
+				top: 100px;
+				right: 100px;
+			}
+			#container {
+				position: absolute;
+				top: 100px;
+				left: 300px;
+			}
+			#t2{background-color: yellow;}
+			#draggable{ width: 100px; height: 100px; padding: 0.5em; float: left; margin: 0 10px 10px 0; }
+			#containment-wrapper { width: 95%; height:150px; border:2px solid #ccc; padding: 10px; }
+		</style>
+	</head>
+	<body onload="Init ()">
+		<span id="test"></span>
+		<table id="outside">
+			<tr><td>Time: <span id="time"></span></td></tr>
+			<tr><td id="t1">0</td></tr>
+			<tr><td id="t2">0</td></tr>
+		</table>
+		<p>test</p>
+		<button id="testButton"> TEST</button>
+		<div id="container">
+			<iframe src="scrollingimages.html" scrolling="no" height="600px" width="400"></iframe>
+		</div>
+		<script>
+			$(function() {
+				$( "#draggable" ).draggable({axis: 'x', scroll: 'false'});
+			});
+			var clicking = false;
+			var image = $(".imageFiles");
+			var x = 0;
+			var y = 0;
+			$("#t1").mousedown(
+			function(e){
+				clicking = true;
+			});
+			$("#t1").mousemove(
+			function(e){
+				if(clicking == true){
+					modifyText();
+				}
+			});
+			$("#t1").mouseup(function(e){
+				clicking = false;
+			});
+			image.mousedown(function(e){
+				x = e.clientx;
+				clicking = true;
+			});
+			image.mousemove(function(e){
+				if(x < e.clientX && clicking == true){
+					image.css("left", (parseInt(image.css("left"))+e.clientX-x)+'px');
+					x = e.clientX;
+				}
+			});
+			image.mouseup(function(e){
+				clicking = false;
+			});
+		</script>
+	</body>
+</html>
